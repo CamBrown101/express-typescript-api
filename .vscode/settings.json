@@ -1,0 +1,6 @@
+{
+    "typescript.format.insertSpaceAfterTypeAssertion": true,
+    "editor.formatOnSave": true,
+    "files.autoSave": "onWindowChange",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

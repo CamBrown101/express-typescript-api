@@ -1,7 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+
 const app = express();
+
+//Import Routes
+import authRoute from "./routes/auth";
 
 dotenv.config();
 
@@ -16,11 +20,10 @@ if (process.env.DB_CONNECT) {
   console.log("ERROR, No DB_CONNECT ENV");
 }
 
-//Import Routes
-import authRoute from "./routes/auth";
-
+//Middleware
+app.use(express.json());
 //Route Middlewares
 app.use("/api/user", authRoute);
 
-const port = process.env.POrt || 3000;
+const port = process.env.Port || 3000;
 app.listen(port, () => console.log(`App listening on PORT ${port}`));

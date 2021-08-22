@@ -1,16 +1,20 @@
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 const app = express();
 
-//Connect to DB
-const mongooseConnect: string =
-  "mongodb+srv://cam:test3@cluster0.ber4a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+dotenv.config();
 
-mongoose.connect(
-  mongooseConnect,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log("connected to DB")
-);
+//Connect to DB
+if (process.env.DB_CONNECT) {
+  mongoose.connect(
+    process.env.DB_CONNECT,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => console.log("connected to DB")
+  );
+} else {
+  console.log("ERROR, No DB_CONNECT ENV");
+}
 
 //Import Routes
 import authRoute from "./routes/auth";

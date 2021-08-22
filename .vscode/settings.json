@@ -1,6 +1,8 @@
 {
-    "typescript.format.insertSpaceAfterTypeAssertion": true,
-    "editor.formatOnSave": true,
-    "files.autoSave": "onWindowChange",
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "typescript.format.insertSpaceAfterTypeAssertion": true,
+  "editor.formatOnSave": true,
+  "files.autoSave": "onWindowChange",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false
 }

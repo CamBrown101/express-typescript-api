@@ -9,4 +9,4 @@ router.post('/login', (req: Request,res: Response) => {
     res.send('Login')
 });
 
-module.exports = router
+export default router;

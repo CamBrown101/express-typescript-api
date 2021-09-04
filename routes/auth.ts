@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import express from "express";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import User from "../model/User";
 import { registerValidation, loginValidation } from "../validation";
 

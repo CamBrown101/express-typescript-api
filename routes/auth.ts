@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import express from "express";
 import bcrypt from "bcryptjs";
 import User from "../model/User";
-import { registerValidation } from "../validation";
+import { registerValidation, loginValidation } from "../validation";
 
 const router = express.Router();
 
@@ -30,14 +30,20 @@ router.post("/register", async (req: Request, res: Response) => {
   //Save user
   try {
     const savedUser = await user.save();
-    res.send(savedUser);
+    res.send({ user: user._id });
   } catch (err) {
     res.status(400).send(err);
   }
 });
 
 router.post("/login", (req: Request, res: Response) => {
-  res.send("Login");
+  //Validate data
+  const { error } = loginValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  //Check if the email exists
+  const emailExist = await User.findOne({ email: req.body.email });
+  if (!emailExist) return res.status(400).send("Email already exists");
 });
 
 export default router;

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import express from "express";
+import bcrypt from "bcryptjs";
 import User from "../model/User";
 import { registerValidation } from "../validation";
 
@@ -15,11 +16,17 @@ router.post("/register", async (req: Request, res: Response) => {
   const emailExist = await User.findOne({ email: req.body.email });
   if (emailExist) return res.status(400).send("Email already exists");
 
+  //Hash the password
+  const salt = await bcrypt.genSalt(10);
+  console.log(salt);
+  const hashPassword = await bcrypt.hash(req.body.password, salt);
+  console.log(hashPassword);
+
   //Create new user
   const user = new User({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password,
+    password: hashPassword,
   });
 
   //Save user

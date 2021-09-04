@@ -36,14 +36,19 @@ router.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/login", (req: Request, res: Response) => {
+router.post("/login", async (req: Request, res: Response) => {
   //Validate data
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   //Check if the email exists
-  const emailExist = await User.findOne({ email: req.body.email });
-  if (!emailExist) return res.status(400).send("Email already exists");
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return res.status(400).send("Email doesn't exist");
+  //Password is correct
+  const validPass = await bcrypt.compare(req.body.password, user.password);
+  if (!validPass) return res.status(400).send("Invalid password");
+
+  res.send("Logged in");
 });
 
 export default router;
